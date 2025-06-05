@@ -19,3 +19,12 @@ def registrar_usuario(cuentas: list, nombre, apellido, email, contraseña):
         })
         return True
     return False
+
+def iniciar_sesion(cuentas, usuario, contraseña):
+    if usuario in cuentas and cuentas[usuario]["contraseña"] == contraseña:
+        rol = Rol(cuentas[usuario]["rol"])
+        print(f"{usuario} Se inicio sesion con exito")
+        return usuario, rol
+    else:
+        print("Error: Usuario o contraseña incorrectos")
+        return None

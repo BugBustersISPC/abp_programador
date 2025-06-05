@@ -1,6 +1,6 @@
 from enum import Enum
 
 class Rol(Enum):
-    ADMIN = "admin"
-    USUARIO = "usuario"
-    DUEÑO = "dueño"
+    ADMIN = 2
+    USUARIO = 1
+    DUENO = 3
