@@ -12,14 +12,32 @@ from automatizaciones import (
 )
 from funciones_auxiliares import input_int, input_confirmacion
 
-from usuarios import iniciar_sesion
+from usuarios import (
+    iniciar_sesion,
+    registrar_usuario  
+)
 
 from roles import Rol
 
 cuentas = {
-    "JuanPerez": {"contraseña": "1234", "rol": Rol.ADMIN},
-    "AnaLopez": {"contraseña": "5678", "rol": Rol.USUARIO},
-    "CarlosGomez": {"contraseña": "abcd", "rol": Rol.USUARIO}
+    "juan.perez@email.com": {
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "contraseña": "1234",
+        "rol": Rol.ADMIN.value
+    },
+    "ana.lopez@email.com": {
+        "nombre": "Ana",
+        "apellido": "Lopez",
+        "contraseña": "5678",
+        "rol": Rol.USUARIO.value
+    },
+    "carlos.gomez@email.com": {
+        "nombre": "Carlos",
+        "apellido": "Gomez",
+        "contraseña": "abcd",
+        "rol": Rol.USUARIO.value
+    }
 }
 
 lista_dispositivos = [
@@ -136,7 +154,17 @@ def menu():
                     menu_usuario(nombre_usuario)
             
         elif opcion == 2:
-            crear_cuenta
+            nombre = input("Ingrese su nombre: ").strip()
+            apellido = input("Ingrese su apellido: ").strip()
+            email = input("ingrese su emial: ").strip()
+            contraseña = input("Ingrese una contraseña: ").strip()
+            
+            nuevoUsuario = registrar_usuario(cuentas,nombre,apellido,email,contraseña)
+            if nuevoUsuario:
+                print("Cuenta creada exitosamente. Iniciando sesión automáticamente...")
+                menu_usuario(email)
+            else:
+                print("Ya existe un usuario con ese email. Intente con otro.")
         elif opcion == 3:
             print("Saliendo del sistema...")
             break

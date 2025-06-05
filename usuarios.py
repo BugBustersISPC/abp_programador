@@ -8,15 +8,14 @@ def buscar_por_email(email, lista):
     return False 
 
 
-def registrar_usuario(cuentas: list, nombre, apellido, email, contraseña):
-    if not buscar_por_email(email, cuentas):
-        cuentas.append({
+def registrar_usuario(cuentas: dict, nombre, apellido, email, contraseña):
+    if email not in cuentas:
+        cuentas[email] = {
             "nombre": nombre,
             "apellido": apellido,
-            "email": email,
             "contraseña": contraseña,
             "rol": Rol.USUARIO.value
-        })
+        }
         return True
     return False
 
