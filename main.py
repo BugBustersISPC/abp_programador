@@ -12,14 +12,36 @@ from automatizaciones import (
 )
 from funciones_auxiliares import input_int, input_confirmacion
 
-from usuarios import iniciar_sesion
-
+from usuarios import (
+    consultar_datos_personales,
+    iniciar_sesion,
+    registrar_usuario
+)
+1
 from roles import Rol
 
 cuentas = {
-    "JuanPerez": {"contraseña": "1234", "rol": Rol.ADMIN},
-    "AnaLopez": {"contraseña": "5678", "rol": Rol.USUARIO},
-    "CarlosGomez": {"contraseña": "abcd", "rol": Rol.USUARIO}
+    "JuanPerez": {
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "contraseña": "1234",
+        "rol": Rol.ADMIN.value,
+        "email": "juan.perez@email.com"
+    },
+    "AnaLopez": {
+        "nombre": "Ana",
+        "apellido": "Lopez",
+        "contraseña": "5678",
+        "rol": Rol.USUARIO.value,
+        "email": "ana.lopez@email.com"
+    },
+    "CarlosGomez": {
+        "nombre": "Carlos",
+        "apellido": "Gomez",
+        "contraseña": "abcd",
+        "rol": Rol.USUARIO.value,
+        "email": "carlos.gomez@email.com"
+    }
 }
 
 lista_dispositivos = [
@@ -43,7 +65,7 @@ def menu_usuario(nombre_usuario):
         print("-------------------------------------------")
 
         if opcion == 1:
-            print("Sin mensaje - consulta datos personales")
+            consultar_datos_personales(nombre_usuario, cuentas)
 
         elif opcion == 2:
             listar_dispositivos(lista_dispositivos)
@@ -136,7 +158,18 @@ def menu():
                     menu_usuario(nombre_usuario)
             
         elif opcion == 2:
-            crear_cuenta
+            nombre = input("Ingrese su nombre: ").strip()
+            apellido = input("Ingrese su apellido: ").strip()
+            usuario = input("ingrese su Usuario: ").strip()
+            email = input("Ingrese su correo email: ").strip()
+            contraseña = input("Ingrese una contraseña: ").strip()
+            
+            nuevoUsuario = registrar_usuario(cuentas,nombre,apellido,usuario,contraseña,email)
+            if nuevoUsuario:
+                print("Cuenta creada exitosamente. Iniciando sesión automáticamente...")
+                menu_usuario(usuario)
+            else:
+                print("Ya existe un usuario con ese email. Intente con otro.")
         elif opcion == 3:
             print("Saliendo del sistema...")
             break

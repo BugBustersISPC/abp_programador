@@ -8,15 +8,15 @@ def buscar_por_email(email, lista):
     return False 
 
 
-def registrar_usuario(cuentas: list, nombre, apellido, email, contraseña):
-    if not buscar_por_email(email, cuentas):
-        cuentas.append({
+def registrar_usuario(cuentas: dict, nombre, apellido, usuario, contraseña, email):
+    if usuario not in cuentas:
+        cuentas[usuario] = {
             "nombre": nombre,
             "apellido": apellido,
-            "email": email,
             "contraseña": contraseña,
-            "rol": Rol.USUARIO.value
-        })
+            "email": email,
+            "rol": Rol.USUARIO.value,
+        }
         return True
     return False
 
@@ -27,4 +27,15 @@ def iniciar_sesion(cuentas, usuario, contraseña):
         return usuario, rol
     else:
         print("Error: Usuario o contraseña incorrectos")
-        return None
+        return None, None
+    
+def consultar_datos_personales(usuario, cuentas):
+    if usuario in cuentas:
+        usuario = cuentas[usuario]
+        print(f"\n--- DATOS PERSONALES---")
+        print(f"Nombre: {usuario['nombre']}")
+        print(f"Apellido: {usuario['apellido']}")
+        print(f"Email: {usuario['email']}")
+        print(f"Rol: {usuario['rol']}")
+    else:
+        print("Error: No se encontraron los datos del usuario.")
