@@ -75,3 +75,16 @@ if __name__ == '__main__':
         elif opcion == 7:
             print("Saliendo del sistema...")
             break
+
+def registrar_usuario(cuentas: list, nombre, apellido, email, contraseña):
+    if not buscar_por_email(email, cuentas):
+        cuentas.append({
+        "nombre": nombre,
+        "apellido": apellido,
+        "email": email,
+        "contraseña": contraseña,
+        })
+
+        return True
+
+    return False
