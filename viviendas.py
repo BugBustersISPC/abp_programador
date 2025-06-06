@@ -4,7 +4,7 @@ def agregar_vivienda(viviendas: list, nombre: str, direccion: str):
         viviendas.append({
             "nombre": nombre,
             "direccion": direccion,
-            "dispositivos": []
+            "ambientes": []  
         })
         return True
     return False
@@ -35,21 +35,20 @@ def listar_viviendas(viviendas: list):
         return "No hay viviendas registradas."
     print("\n--- LISTA DE VIVIENDAS ---")
     for vivienda in viviendas:
-        print(f"- {vivienda['nombre']} (Dirección: {vivienda['direccion']}) - Dispositivos: {len(vivienda['dispositivos'])}")
+        print(f"- {vivienda['nombre']} (Dirección: {vivienda['direccion']}) - Ambientes: {len(vivienda['ambientes'])}")
 
 
 def agregar_ubicacion_a_vivienda(nombre_vivienda: str, ubicacion: str, viviendas: list):
     vivienda = buscar_vivienda_por_nombre(nombre_vivienda, viviendas)
     if vivienda:
-        if ubicacion.strip() and ubicacion not in vivienda["dispositivos"]: 
-            vivienda["dispositivos"].append(ubicacion)
+        if ubicacion.strip() and ubicacion not in vivienda["ambientes"]:
+            vivienda["ambientes"].append(ubicacion)
             return True
-        elif ubicacion in vivienda["dispositivos"]:
-            return False 
+        elif ubicacion in vivienda["ambientes"]:
+            return False
         else:
-            return False 
-    return None 
-
+            return False
+    return None
 
 
 def menu_viviendas():
