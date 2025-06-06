@@ -13,10 +13,11 @@ from automatizaciones import (
 from funciones_auxiliares import input_int, input_confirmacion
 
 from usuarios import (
+    consultar_datos_personales,
     iniciar_sesion,
-    registrar_usuario  
+    registrar_usuario
 )
-
+1
 from roles import Rol
 
 cuentas = {
@@ -61,7 +62,7 @@ def menu_usuario(nombre_usuario):
         print("-------------------------------------------")
 
         if opcion == 1:
-            print("Sin mensaje - consulta datos personales")
+            consultar_datos_personales(nombre_usuario, cuentas)
 
         elif opcion == 2:
             listar_dispositivos(lista_dispositivos)

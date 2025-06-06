@@ -27,3 +27,14 @@ def iniciar_sesion(cuentas, usuario, contraseña):
     else:
         print("Error: Usuario o contraseña incorrectos")
         return None
+    
+def consultar_datos_personales(email, cuentas):
+    if email in cuentas:
+        usuario = cuentas[email]
+        print("\n--- DATOS PERSONALES ---")
+        print(f"Nombre: {usuario['nombre']}")
+        print(f"Apellido: {usuario['apellido']}")
+        print(f"Email: {email}")
+        print(f"Rol: {usuario['rol']}")
+    else:
+        print("Error: No se encontraron los datos del usuario.")
