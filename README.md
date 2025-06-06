@@ -1,12 +1,9 @@
 
 # SmartHome - Proyecto Integrador (Módulo Programador)
 
-Este proyecto simula un sistema básico de gestión de dispositivos inteligentes en un hogar, desarrollado como parte del *ABP del Módulo Programador* del ISPC.
+Este proyecto es una simulación de un sistema de domótica desarrollado en Python, que permite gestionar dispositivos, automatizaciones y usuarios a través de una interfaz de línea de comandos. Forma parte del trabajo práctico de la materia ABP del ISPC.
 
-Permite a los usuarios:
-- Registrar, listar, buscar y eliminar dispositivos.
-- Activar automatizaciones como "Modo Fiesta" y "Modo Noche".
-
+---
 
 
 ## Funcionalidades
@@ -37,38 +34,63 @@ Permite a los usuarios:
 
 
 
-## Uso del sistema
+## 🚀 Funcionalidades Implementadas
 
-Al ejecutar el programa (main.py), se accede a un menú de consola:
+* **Inicio de Sesión:** Permite a los usuarios autenticarse en el sistema.
+* **Crear Cuenta:** Los nuevos usuarios pueden registrarse en el sistema.
+* **Consultar Datos Personales:** Los usuarios pueden visualizar su información personal. 
+* **Consultar Automatizaciones Activas:** Muestra el estado actual de las automatizaciones configuradas. 
+* **Configurar Automatización:** Permite a los usuarios establecer automatizaciones personalizadas.
+* **Modificar Rol de Usuario:** Los administradores pueden cambiar los roles de los usuarios.
+* **Asignar Ubicaciones a Dispositivos:** Los dispositivos pueden ser asociados a ubicaciones específicas dentro de la vivienda.
+* **Gestión de Vivienda:** Permite la administración de diferentes viviendas y sus dispositivos asociados.
 
+---
 
-1. Agregar dispositivo
-2. Listar dispositivos
-3. Buscar dispositivo
-4. Eliminar dispositivo
-5. Activar Modo Fiesta
-6. Activar Modo Noche
-7. Salir
+## 🧑‍💻 Distribución del Equipo
 
+| Funcionalidad                      | Estado    | Responsable |
+| ---------------------------------- | --------- | ----------- |
+| Consultar Datos Personales         | Terminado | Fausto      |
+| Crear Cuenta                       | Terminado | Emiliano    |
+| Configurar Automatización          | Terminado | Matias      |
+| Consultar Automatizaciones Activas | Terminado | Kevin       |
+| Modificar Rol de Usuario           | Terminado | Genaro      |
+| Asignar Ubicaciones a Dispositivos | Terminado | Ignacio     |
+| Gestión de Vivienda                | Terminado | Ignacio     |
+| Inicio de Sesión                   | Terminado | Kevin       |
 
+---
 
 ##  Estructura del proyecto
 
 ```
-abp_programador_ispc/
-├── __pycache__/ # Archivos compilados de Python
-├── automatizaciones.py # Funciones de escenarios predefinidos
-├── dispositivos.py # Funciones de gestión de dispositivos
-├── main.py # Menú principal y flujo de usuario
-└── README.md # Documentación de este proyecto
+abp_programador/
+├── main.py
+├── usuarios.py
+├── dispositivos.py
+├── automatizaciones.py
+├── funciones_auxiliares.py
+├── README.md
+├── roles.py
+└── viviendas.py
 ```
+* `main.py`: Contiene el menú principal y la lógica de navegación.
+* `usuarios.py`: Maneja la autenticación y gestión de usuarios.
+* `dispositivos.py`: Gestiona los dispositivos del sistema.
+* `automatizaciones.py`: Controla las automatizaciones configuradas.
+* `funciones_auxiliares.py`: Funciones de utilidad para validaciones y entradas.
+* `roles.py`: Almacena los roles.
+* `viviendas.py`: Gestiona todas las funciones de vivienda
+
+---
 
 ##  Requisitos técnicos
 
 - Python 3.10 o superior
 - Consola o terminal
 
-
+---
 
 ## 👥Créditos
 
@@ -77,14 +99,13 @@ abp_programador_ispc/
 - Moreira Ignacio Javier  
 - Cura Genaro  
 - Requelme Kevin Agustín  
-- Díaz Esteban Emiliano Gabriel  
+- Díaz Esteban Emiliano Gabriel
 
 **Con la guía de:**
 - ROJAS CÓRSICO Ivana Soledad  
 - MAINERO Alejandro Luis  
 - APERLO Agustina
 - OLIVERO José
-
 
 ---
 
@@ -121,3 +142,12 @@ abp_programador_ispc/
 
 - **Acuerdos de conducta y compromiso ético:**  
   Se acordó responsabilidad compartida, comunicación clara, y entrega en tiempo y forma como compromiso del equipo.
+
+---
+
+## 📌 Notas Adicionales
+
+* El proyecto sigue las buenas prácticas del AWS Well-Architected Framework, enfocándose en la excelencia operativa, seguridad, confiabilidad, eficiencia en el rendimiento, optimización de costos y sostenibilidad.
+* Se recomienda revisar los módulos y funciones para comprender la implementación detallada de cada funcionalidad.
+
+---

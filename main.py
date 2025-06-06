@@ -5,6 +5,7 @@ from dispositivos import (
     eliminar_dispositivo
 )
 from automatizaciones import (
+    consultar_automatizaciones,
     activar_modo_fiesta,
     apagar_modo_fiesta,
     activar_modo_noche,
@@ -141,12 +142,13 @@ def menu_viviendas(nombre_usuario):
         print("3. Eliminar vivienda")
         print("4. Listar viviendas")
         print("5. Agregar ubicación a una vivienda")
-        print("6. Agregar dispositivo a un ambiente")
+        print("6. Agregar dispositivo a un ambiente") # Falta agregar esta funcionalidad
         print("7. Salir")
 
-        opcion = input("Seleccione una opción: ").strip()
+        opcion = input_int("Seleccione una opción: " , 1, 7)
+        
 
-        if opcion == "1":
+        if opcion == 1:
             nombre = input("Nombre de la vivienda: ").strip()
             direccion = input("Dirección de la vivienda: ").strip()
             if not nombre or not direccion: 
@@ -157,7 +159,7 @@ def menu_viviendas(nombre_usuario):
             else:
                 print("Ya existe una vivienda con ese nombre.")
 
-        elif opcion == "2":
+        elif opcion == 2:
             nombre = input("Nombre de la vivienda a buscar: ").strip()
             if not nombre:
                 print("El nombre a buscar no puede estar vacío.")
@@ -171,7 +173,7 @@ def menu_viviendas(nombre_usuario):
             else:
                 print("No se encontró la vivienda.")
 
-        elif opcion == "3":
+        elif opcion == 3:
             nombre = input("Nombre de la vivienda a eliminar: ").strip()
             if not nombre:
                 print("El nombre a eliminar no puede estar vacío.")
@@ -185,12 +187,12 @@ def menu_viviendas(nombre_usuario):
             confirmar = input(f"¿Está seguro que desea eliminar la vivienda '{nombre}'? (si/no): ").strip()
             print(eliminar_vivienda(nombre, confirmar, viviendas))
 
-        elif opcion == "4":
+        elif opcion == 4:
             resultado = listar_viviendas(viviendas)
             if resultado: 
                 print(resultado)
 
-        elif opcion == "5":
+        elif opcion == 5:
             nombre_vivienda = input("Nombre de la vivienda: ").strip()
             if not nombre_vivienda:
                 print("El nombre de la vivienda no puede estar vacío.")
@@ -215,11 +217,11 @@ def menu_viviendas(nombre_usuario):
                 else:
                     print("No se pudo agregar la ubicación (posiblemente estaba vacía o ya existía).")
 
-        elif opcion == "6":
+        elif opcion == 6: # Falta implementar esta funcionalidad
         
             break
 
-        elif opcion == "7":
+        elif opcion == 7:
             print("Saliendo del menú...")
             break
 
@@ -237,11 +239,11 @@ def menu_admin(nombre_usuario):
         print("5. Modificar el rol de un usuario")
         print("6. Salir")
 
-        opcion = input_int("Seleccione una opcio 1-6: ", 1, 6)
+        opcion = input_int("Seleccione una opción 1-6: ", 1, 6)
         print("-------------------------------------------")
 
         if opcion == 1:
-            print("Modo Noche y Modo Fiesta habilitar estados")
+            print(consultar_automatizaciones(lista_dispositivos))
         
         elif opcion == 2:
             listar_dispositivos(lista_dispositivos)
@@ -277,7 +279,7 @@ def menu():
         print("2. Crear cuenta")
         print("3. Salir")
 
-        opcion = input_int("Seleccione una opcion 1-3: ", 1, 3)
+        opcion = input_int("Seleccione una opción 1-3: ", 1, 3)
 
         if opcion == 1:
             usuario = input("Ingrese su nombre de usuario: ").strip()
