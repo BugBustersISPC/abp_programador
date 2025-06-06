@@ -5,6 +5,7 @@ from dispositivos import (
     eliminar_dispositivo
 )
 from automatizaciones import (
+    consultar_automatizaciones,
     activar_modo_fiesta,
     apagar_modo_fiesta,
     activar_modo_noche,
@@ -109,7 +110,7 @@ def menu_admin(nombre_usuario):
         print("-------------------------------------------")
 
         if opcion == 1:
-            print("Modo Noche y Modo Fiesta habilitar estados")
+            print(consultar_automatizaciones(lista_dispositivos))
         
         elif opcion == 2:
             listar_dispositivos(lista_dispositivos)
