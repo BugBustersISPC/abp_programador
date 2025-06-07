@@ -11,12 +11,14 @@ from automatizaciones import (
     activar_modo_noche,
     apagar_modo_noche
 )
-from funciones_auxiliares import input_int, input_confirmacion
+from funciones_auxiliares import input_int, input_confirmacion, input_estado
 
 from usuarios import (
     consultar_datos_personales,
     iniciar_sesion,
-    registrar_usuario
+    registrar_usuario,
+    listar_usuarios,
+    modificar_rol_usuario
 )
 
 from roles import Rol
@@ -233,38 +235,57 @@ def menu_admin(nombre_usuario):
     while True:
         print(f"--- Menu Administrador de {nombre_usuario} ---")
         print("1. Consultar automatizaciones activas")
-        print("2. Listar dispositivos")
-        print("3. Buscar dispositivo")
-        print("4. Eliminar dispositivo")
-        print("5. Modificar el rol de un usuario")
-        print("6. Salir")
+        print("2. Agregar dispositivos")
+        print("3. Listar dispositivos")
+        print("4. Buscar dispositivo")
+        print("5. Eliminar dispositivo")
+        print("6. Modificar el rol de un usuario")
+        print("7. Salir")
 
-        opcion = input_int("Seleccione una opción 1-6: ", 1, 6)
+        opcion = input_int("Seleccione una opción 1-7: ", 1, 7)
         print("-------------------------------------------")
 
         if opcion == 1:
             print(consultar_automatizaciones(lista_dispositivos))
-        
+
         elif opcion == 2:
+            print("\n--- AGREGAR NUEVO DISPOSITIVO ---")
+            nombre_nuevo = input("Ingrese el nombre del dispositivo: ").strip()
+            print("Tipos disponibles:  1: Cámara | 2: Luz | 3: Música")
+            tipo_nuevo = input_int("Ingrese el tipo de dispositivo (1-3): ", 1, 3)
+            input_estado()
+            resultado = agregar_dispositivo(lista_dispositivos, nombre_nuevo, tipo_nuevo, input_estado)
+            if resultado:
+                print(f"Dispositivo {nombre_nuevo} agregado")
+            else:
+                print(f"El dispositovo {nombre_nuevo} ya existe")
+        elif opcion == 3:
             listar_dispositivos(lista_dispositivos)
         
-        elif opcion == 3:
+        elif opcion == 4:
             nombre = input("Ingrese el nombre del dispositivo a buscar: ").strip()
             if buscar_por_nombre(nombre, lista_dispositivos):
                 print(f"El dispositivo ingresado como '{nombre}' si existe.")
             else:
                 print(f"No existe ningUn dispositivo llamado '{nombre}'.")
         
-        elif opcion == 4:
+        elif opcion == 5:
             dispositivo = input("Ingrese el dispositivo que quiere eliminar: ").strip()
             confirmar = input_confirmacion(f"¿Esta seguro que desea eliminar el dispositivo '{dispositivo}'? (si/no): ")
             resultado = eliminar_dispositivo(dispositivo, confirmar, lista_dispositivos)
             print(resultado)
         
-        elif opcion == 5:
-            print("Modificar rol de usuario")
-        
         elif opcion == 6:
+             listar_usuarios(cuentas)
+             usuario_a_modificar = input("\nIngrese el nombre de usuario que desea modificar: ").strip()
+             if usuario_a_modificar == nombre_usuario:
+                 print("No puedes modificar tu propio rol")
+                 continue
+             print("\nRoles disponibles: 1:Usuario, 2:Admin, 3:Dueño")
+             nuevo_rol_num = input_int("Ingrese el número del nuevo rol para el usuario:", 1, 3)
+             resultado = modificar_rol_usuario(cuentas, usuario_a_modificar, nuevo_rol_num)
+             print(resultado)
+        elif opcion == 7:
             print("Saliendo de la cuenta...")
             break
 
