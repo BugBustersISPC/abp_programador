@@ -4,13 +4,8 @@ from dispositivos import (
     buscar_por_nombre,
     eliminar_dispositivo
 )
-from automatizaciones import (
-    consultar_automatizaciones,
-    activar_modo_fiesta,
-    apagar_modo_fiesta,
-    activar_modo_noche,
-    apagar_modo_noche
-)
+from automatizaciones import *
+
 from funciones_auxiliares import input_int, input_confirmacion, input_estado
 
 from usuarios import (
@@ -82,9 +77,10 @@ def menu_usuario(nombre_usuario):
         print("3. Buscar dispositivo")
         print("4. Modificar Modo Fiesta")
         print("5. Modificar Modo Noche")
-        print("6. Salir")
+        print("6. Configurar la Hora de activacion de Modo Noche")
+        print("7. Salir")
 
-        opcion = input_int("Seleccione una opcion 1-6: ", 1, 6)
+        opcion = input_int("Seleccione una opcion 1-7: ", 1, 7)
         print("-------------------------------------------")
 
         if opcion == 1:
@@ -115,8 +111,18 @@ def menu_usuario(nombre_usuario):
                 print(apagar_modo_noche(lista_dispositivos))
         
         elif opcion == 6:
+            nueva_hora = int(input("Ingrese la nueva hora de activacion del modo noche (0-23):"))
+            configurar_hora_modo_noche(nueva_hora)
+
+        elif opcion == 7:
             print("Saliendo de la Cuenta")
             break
+
+        # Verificar la hora por cada iteración y activar el modo noche si la hora coincide
+        # con la configurada para que se encienda.
+        if verificar_hora_modo_noche(lista_dispositivos):
+            activar_modo_noche(lista_dispositivos)
+            print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 
 def menu_viviendas(nombre_usuario):
     viviendas = [
@@ -285,9 +291,17 @@ def menu_admin(nombre_usuario):
              nuevo_rol_num = input_int("Ingrese el número del nuevo rol para el usuario:", 1, 3)
              resultado = modificar_rol_usuario(cuentas, usuario_a_modificar, nuevo_rol_num)
              print(resultado)
+        
         elif opcion == 7:
             print("Saliendo de la cuenta...")
             break
+
+        # Verificar la hora por cada iteración y activar el modo noche si la hora coincide
+        # con la configurada para que se encienda.
+        if verificar_hora_modo_noche():
+            activar_modo_noche(lista_dispositivos)
+            print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
+
 
 
 def crear_cuenta():

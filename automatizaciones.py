@@ -1,3 +1,7 @@
+from datetime import datetime
+
+hora_activacion_modo_noche = 23
+
 def consultar_automatizaciones(dispositivos):
     modo_fiesta = True
     for dispositivo in dispositivos:
@@ -12,10 +16,7 @@ def consultar_automatizaciones(dispositivos):
             modo_noche = False
             break
 
-    estado_fiesta = "On" if modo_fiesta else "Off"
-    estado_noche = "On" if modo_noche else "Off"
-
-    return f"Estado de Automatizaciones: - Modo Fiesta: {estado_fiesta} / - Modo Noche: {estado_noche}"
+    return modo_fiesta, modo_noche
 
 def activar_modo_fiesta(dispositivos):
     for dispositivo in dispositivos:
@@ -44,3 +45,22 @@ def apagar_modo_noche(dispositivos):
         if dispositivo["tipo"] == 1 and dispositivo["estado"] == True:
             dispositivo["estado"] = False
     return "Modo Noche desactivado: cámaras apagadas."             
+
+def configurar_hora_modo_noche(nueva_hora):
+    if nueva_hora > 23 or nueva_hora < 0:
+        return False
+    
+    global hora_activacion_modo_noche
+    hora_activacion_modo_noche = nueva_hora
+
+def verificar_hora_modo_noche(dispositivos):
+    time = datetime.now()
+    modo_fiesta, modo_noche = consultar_automatizaciones(dispositivos)
+
+    # Para que el modo noche se active automaticamente, no debe estar activo el modo
+    # fiesta ni el modo noche y tiene que ser la hora a la que esta configurada para
+    # que se active
+    if modo_fiesta or modo_noche or time.hour != hora_activacion_modo_noche:
+        return False
+    else:
+        return True
