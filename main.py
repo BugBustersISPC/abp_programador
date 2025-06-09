@@ -52,7 +52,7 @@ cuentas = {
         "nombre": "Maria",
         "apellido": "Garcia",
         "contraseña": "abcd",
-        "rol": Rol.DUENO.value,
+        "rol": Rol.USUARIO.value,
         "email": "maria.garcia@email.com"
     }
 }
@@ -298,7 +298,7 @@ def menu_admin(nombre_usuario):
 
         # Verificar la hora por cada iteración y activar el modo noche si la hora coincide
         # con la configurada para que se encienda.
-        if verificar_hora_modo_noche():
+        if verificar_hora_modo_noche(lista_dispositivos):
             activar_modo_noche(lista_dispositivos)
             print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 

@@ -53,8 +53,8 @@ def listar_usuarios(cuentas: dict):
             rol_texto = "Admin"
         elif rol_numero == 3:
             rol_texto = "Dueno"
+        print(f"- Usuario: {usuario} | Rol: {rol_texto}")
 
-    print(f"- Usuario: {usuario} | Rol: {rol_texto}")
 
 
 
