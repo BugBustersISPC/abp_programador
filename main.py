@@ -1,17 +1,8 @@
 from dispositivos import gestor_dispositivos
+from usuarios import gestor_usuarios, Rol
 from automatizaciones import *
 
 from funciones_auxiliares import input_int, input_confirmacion, input_estado
-
-from usuarios import (
-    consultar_datos_personales,
-    iniciar_sesion,
-    registrar_usuario,
-    listar_usuarios,
-    modificar_rol_usuario
-)
-
-from roles import Rol
 
 from viviendas import (
     agregar_vivienda,
@@ -21,36 +12,36 @@ from viviendas import (
     agregar_ubicacion_a_vivienda
 )
 
-cuentas = {
-    "JuanPerez": {
-        "nombre": "Juan",
-        "apellido": "Perez",
-        "contraseña": "1234",
-        "rol": Rol.ADMIN.value,
-        "email": "juan.perez@email.com"
-    },
-    "AnaLopez": {
-        "nombre": "Ana",
-        "apellido": "Lopez",
-        "contraseña": "5678",
-        "rol": Rol.USUARIO.value,
-        "email": "ana.lopez@email.com"
-    },
-    "CarlosGomez": {
-        "nombre": "Carlos",
-        "apellido": "Gomez",
-        "contraseña": "abcd",
-        "rol": Rol.USUARIO.value,
-        "email": "carlos.gomez@email.com"
-    },
-    "MariaGarcia": {
-        "nombre": "Maria",
-        "apellido": "Garcia",
-        "contraseña": "abcd",
-        "rol": Rol.USUARIO.value,
-        "email": "maria.garcia@email.com"
-    }
-}
+# cuentas = {
+#     "JuanPerez": {
+#         "nombre": "Juan",
+#         "apellido": "Perez",
+#         "contraseña": "1234",
+#         "rol": Rol.ADMIN.value,
+#         "email": "juan.perez@email.com"
+#     },
+#     "AnaLopez": {
+#         "nombre": "Ana",
+#         "apellido": "Lopez",
+#         "contraseña": "5678",
+#         "rol": Rol.USUARIO.value,
+#         "email": "ana.lopez@email.com"
+#     },
+#     "CarlosGomez": {
+#         "nombre": "Carlos",
+#         "apellido": "Gomez",
+#         "contraseña": "abcd",
+#         "rol": Rol.USUARIO.value,
+#         "email": "carlos.gomez@email.com"
+#     },
+#     "MariaGarcia": {
+#         "nombre": "Maria",
+#         "apellido": "Garcia",
+#         "contraseña": "abcd",
+#         "rol": Rol.USUARIO.value,
+#         "email": "maria.garcia@email.com"
+#     }
+# }
 
 # lista_dispositivos = [
 #     {"nombre": 'Luces', "tipo": 2, "estado": True, "ambiente": "Comedor"},
@@ -80,6 +71,8 @@ def menu_usuario(nombre_usuario):
         verificar_hora_modo_noche,
     ) = gestor_dispositivos()
 
+    consultar_datos_personales, *resto = gestor_usuarios()
+
     while True:
         print(f"--- Menu Usuario Estandar de {nombre_usuario} ---")
         print("1. Consultar los datos personales")
@@ -94,7 +87,7 @@ def menu_usuario(nombre_usuario):
         print("-------------------------------------------")
 
         if opcion == 1:
-            consultar_datos_personales(nombre_usuario, cuentas)
+            consultar_datos_personales(nombre_usuario)
 
         elif opcion == 2:
             listar_dispositivos()
@@ -263,6 +256,8 @@ def menu_admin(nombre_usuario):
         verificar_hora_modo_noche,
     ) = gestor_dispositivos()
 
+    _, _, _, listar_usuarios, modificar_rol_usuario, _ = gestor_usuarios()
+
     while True:
         print(f"--- Menu Administrador de {nombre_usuario} ---")
         print("1. Consultar automatizaciones activas")
@@ -307,14 +302,14 @@ def menu_admin(nombre_usuario):
             print(resultado)
         
         elif opcion == 6:
-             listar_usuarios(cuentas)
+             listar_usuarios()
              usuario_a_modificar = input("\nIngrese el nombre de usuario que desea modificar: ").strip()
              if usuario_a_modificar == nombre_usuario:
                  print("No puedes modificar tu propio rol")
                  continue
              print("\nRoles disponibles: 1:Usuario, 2:Admin, 3:Dueño")
              nuevo_rol_num = input_int("Ingrese el número del nuevo rol para el usuario:", 1, 3)
-             resultado = modificar_rol_usuario(cuentas, usuario_a_modificar, nuevo_rol_num)
+             resultado = modificar_rol_usuario(usuario_a_modificar, nuevo_rol_num)
              print(resultado)
         
         elif opcion == 7:
@@ -333,6 +328,8 @@ def crear_cuenta():
     print("Crear Cuenta")
 
 def menu():
+    _, iniciar_sesion, registrar_usuario, *resto = gestor_usuarios()
+
     while True:
         print("Menu Principal:")
         print("1. Iniciar sesion")
@@ -344,7 +341,7 @@ def menu():
         if opcion == 1:
             usuario = input("Ingrese su nombre de usuario: ").strip()
             contraseña = input("Ingrese su contraseña: ").strip()
-            nombre_usuario, rol = iniciar_sesion(cuentas, usuario, contraseña)
+            nombre_usuario, rol = iniciar_sesion(usuario, contraseña)
             if nombre_usuario and rol:
                 if rol == Rol.ADMIN:
                     menu_admin(nombre_usuario)
@@ -360,7 +357,7 @@ def menu():
             email = input("Ingrese su correo email: ").strip()
             contraseña = input("Ingrese una contraseña: ").strip()
             
-            nuevoUsuario = registrar_usuario(cuentas,nombre,apellido,usuario,contraseña,email)
+            nuevoUsuario = registrar_usuario(nombre, apellido, usuario, contraseña, email)
             if nuevoUsuario:
                 print("Cuenta creada exitosamente. Iniciando sesión automáticamente...")
                 menu_usuario(usuario)
