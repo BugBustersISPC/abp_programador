@@ -1,9 +1,4 @@
-from dispositivos import (
-    agregar_dispositivo,
-    listar_dispositivos,
-    buscar_por_nombre,
-    eliminar_dispositivo
-)
+from dispositivos import gestor_dispositivos
 from automatizaciones import *
 
 from funciones_auxiliares import input_int, input_confirmacion, input_estado
@@ -57,19 +52,34 @@ cuentas = {
     }
 }
 
-lista_dispositivos = [
-    {"nombre": 'Luces', "tipo": 2, "estado": True, "ambiente": "Comedor"},
-    {"nombre": 'Camara seguridad', "tipo": 1, "estado": False, "ambiente": "Entrada"},
-    {"nombre": 'Camara trasera', "tipo": 1, "estado": True, "ambiente": "Patio"},
-    {"nombre": 'Luz', "tipo": 2, "estado": False, "ambiente": "Sala"},
-    {"nombre": 'Luz RGB', "tipo": 2, "estado": True, "ambiente": "Dormitorio"},
-    {"nombre": 'Parlantes TV', "tipo": 3, "estado": True, "ambiente": "Living"},
-    {"nombre": 'Alarma', "tipo": 1, "estado": False, "ambiente": "Comedor"},
-    {"nombre": 'Equipo musica', "tipo": 3, "estado": True},
-    {"nombre": 'Luces 2', "tipo": 2, "estado": True}
-]
+# lista_dispositivos = [
+#     {"nombre": 'Luces', "tipo": 2, "estado": True, "ambiente": "Comedor"},
+#     {"nombre": 'Camara seguridad', "tipo": 1, "estado": False, "ambiente": "Entrada"},
+#     {"nombre": 'Camara trasera', "tipo": 1, "estado": True, "ambiente": "Patio"},
+#     {"nombre": 'Luz', "tipo": 2, "estado": False, "ambiente": "Sala"},
+#     {"nombre": 'Luz RGB', "tipo": 2, "estado": True, "ambiente": "Dormitorio"},
+#     {"nombre": 'Parlantes TV', "tipo": 3, "estado": True, "ambiente": "Living"},
+#     {"nombre": 'Alarma', "tipo": 1, "estado": False, "ambiente": "Comedor"},
+#     {"nombre": 'Equipo musica', "tipo": 3, "estado": True},
+#     {"nombre": 'Luces 2', "tipo": 2, "estado": True}
+# ]
 
 def menu_usuario(nombre_usuario):
+    (
+        listar_dispositivos,
+        buscar_por_nombre,
+        _,
+        _,
+
+        _,
+        activar_modo_fiesta,
+        apagar_modo_fiesta,
+        activar_modo_noche,
+        apagar_modo_noche,
+        configurar_hora_modo_noche,
+        verificar_hora_modo_noche,
+    ) = gestor_dispositivos()
+
     while True:
         print(f"--- Menu Usuario Estandar de {nombre_usuario} ---")
         print("1. Consultar los datos personales")
@@ -87,11 +97,11 @@ def menu_usuario(nombre_usuario):
             consultar_datos_personales(nombre_usuario, cuentas)
 
         elif opcion == 2:
-            listar_dispositivos(lista_dispositivos)
+            listar_dispositivos()
 
         elif opcion == 3:
             nombre = input("Ingrese el nombre del dispositivo a buscar: ").strip()
-            if buscar_por_nombre(nombre, lista_dispositivos):
+            if buscar_por_nombre(nombre):
                 print(f"El dispositivo ingresado como '{nombre}' si existe.")
             else:
                 print(f"No existe ningun dispositivo llamado '{nombre}'.")
@@ -99,16 +109,16 @@ def menu_usuario(nombre_usuario):
         elif opcion == 4:
             accion = input_int("Ingrese 1 para activar Modo Fiesta o 2 para apagarlo: ", 1, 2)
             if accion == 1:
-                print(activar_modo_fiesta(lista_dispositivos))
+                print(activar_modo_fiesta())
             else:
-                print(apagar_modo_fiesta(lista_dispositivos))
+                print(apagar_modo_fiesta())
 
         elif opcion == 5:
             accion = input_int("Ingrese 1 para activar Modo Noche o 2 para apagarlo: ", 1, 2)
             if accion == 1:
-                print(activar_modo_noche(lista_dispositivos))
+                print(activar_modo_noche())
             else:
-                print(apagar_modo_noche(lista_dispositivos))
+                print(apagar_modo_noche())
         
         elif opcion == 6:
             nueva_hora = int(input("Ingrese la nueva hora de activacion del modo noche (0-23):"))
@@ -120,8 +130,8 @@ def menu_usuario(nombre_usuario):
 
         # Verificar la hora por cada iteración y activar el modo noche si la hora coincide
         # con la configurada para que se encienda.
-        if verificar_hora_modo_noche(lista_dispositivos):
-            activar_modo_noche(lista_dispositivos)
+        if verificar_hora_modo_noche():
+            activar_modo_noche()
             print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 
 def menu_viviendas(nombre_usuario):
@@ -238,6 +248,21 @@ def menu_viviendas(nombre_usuario):
 
 
 def menu_admin(nombre_usuario):
+    (
+        listar_dispositivos,
+        buscar_por_nombre,
+        agregar_dispositivo,
+        eliminar_dispositivo,
+
+        consultar_automatizaciones,
+        _,
+        _,
+        activar_modo_noche,
+        _,
+        _,
+        verificar_hora_modo_noche,
+    ) = gestor_dispositivos()
+
     while True:
         print(f"--- Menu Administrador de {nombre_usuario} ---")
         print("1. Consultar automatizaciones activas")
@@ -252,7 +277,7 @@ def menu_admin(nombre_usuario):
         print("-------------------------------------------")
 
         if opcion == 1:
-            print(consultar_automatizaciones(lista_dispositivos))
+            print(consultar_automatizaciones())
 
         elif opcion == 2:
             print("\n--- AGREGAR NUEVO DISPOSITIVO ---")
@@ -260,17 +285,17 @@ def menu_admin(nombre_usuario):
             print("Tipos disponibles:  1: Cámara | 2: Luz | 3: Música")
             tipo_nuevo = input_int("Ingrese el tipo de dispositivo (1-3): ", 1, 3)
             input_estado()
-            resultado = agregar_dispositivo(lista_dispositivos, nombre_nuevo, tipo_nuevo, input_estado)
+            resultado = agregar_dispositivo(nombre_nuevo, tipo_nuevo, input_estado)
             if resultado:
                 print(f"Dispositivo {nombre_nuevo} agregado")
             else:
                 print(f"El dispositovo {nombre_nuevo} ya existe")
         elif opcion == 3:
-            listar_dispositivos(lista_dispositivos)
+            listar_dispositivos()
         
         elif opcion == 4:
             nombre = input("Ingrese el nombre del dispositivo a buscar: ").strip()
-            if buscar_por_nombre(nombre, lista_dispositivos):
+            if buscar_por_nombre(nombre):
                 print(f"El dispositivo ingresado como '{nombre}' si existe.")
             else:
                 print(f"No existe ningUn dispositivo llamado '{nombre}'.")
@@ -278,7 +303,7 @@ def menu_admin(nombre_usuario):
         elif opcion == 5:
             dispositivo = input("Ingrese el dispositivo que quiere eliminar: ").strip()
             confirmar = input_confirmacion(f"¿Esta seguro que desea eliminar el dispositivo '{dispositivo}'? (si/no): ")
-            resultado = eliminar_dispositivo(dispositivo, confirmar, lista_dispositivos)
+            resultado = eliminar_dispositivo(dispositivo, confirmar)
             print(resultado)
         
         elif opcion == 6:
@@ -298,8 +323,8 @@ def menu_admin(nombre_usuario):
 
         # Verificar la hora por cada iteración y activar el modo noche si la hora coincide
         # con la configurada para que se encienda.
-        if verificar_hora_modo_noche(lista_dispositivos):
-            activar_modo_noche(lista_dispositivos)
+        if verificar_hora_modo_noche():
+            activar_modo_noche()
             print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 
 
