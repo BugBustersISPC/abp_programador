@@ -1,52 +1,8 @@
 from dispositivos import gestor_dispositivos
 from usuarios import gestor_usuarios, Rol
 from viviendas import gestor_viviendas
-from automatizaciones import *
 
 from funciones_auxiliares import input_int, input_confirmacion, input_estado
-
-# cuentas = {
-#     "JuanPerez": {
-#         "nombre": "Juan",
-#         "apellido": "Perez",
-#         "contraseña": "1234",
-#         "rol": Rol.ADMIN.value,
-#         "email": "juan.perez@email.com"
-#     },
-#     "AnaLopez": {
-#         "nombre": "Ana",
-#         "apellido": "Lopez",
-#         "contraseña": "5678",
-#         "rol": Rol.USUARIO.value,
-#         "email": "ana.lopez@email.com"
-#     },
-#     "CarlosGomez": {
-#         "nombre": "Carlos",
-#         "apellido": "Gomez",
-#         "contraseña": "abcd",
-#         "rol": Rol.USUARIO.value,
-#         "email": "carlos.gomez@email.com"
-#     },
-#     "MariaGarcia": {
-#         "nombre": "Maria",
-#         "apellido": "Garcia",
-#         "contraseña": "abcd",
-#         "rol": Rol.USUARIO.value,
-#         "email": "maria.garcia@email.com"
-#     }
-# }
-
-# lista_dispositivos = [
-#     {"nombre": 'Luces', "tipo": 2, "estado": True, "ambiente": "Comedor"},
-#     {"nombre": 'Camara seguridad', "tipo": 1, "estado": False, "ambiente": "Entrada"},
-#     {"nombre": 'Camara trasera', "tipo": 1, "estado": True, "ambiente": "Patio"},
-#     {"nombre": 'Luz', "tipo": 2, "estado": False, "ambiente": "Sala"},
-#     {"nombre": 'Luz RGB', "tipo": 2, "estado": True, "ambiente": "Dormitorio"},
-#     {"nombre": 'Parlantes TV', "tipo": 3, "estado": True, "ambiente": "Living"},
-#     {"nombre": 'Alarma', "tipo": 1, "estado": False, "ambiente": "Comedor"},
-#     {"nombre": 'Equipo musica', "tipo": 3, "estado": True},
-#     {"nombre": 'Luces 2', "tipo": 2, "estado": True}
-# ]
 
 def menu_usuario(nombre_usuario):
     (
@@ -121,23 +77,6 @@ def menu_usuario(nombre_usuario):
             print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 
 def menu_viviendas(nombre_usuario):
-    # viviendas = [
-    #     {
-    #         "nombre": "Casa Central",
-    #         "direccion": "Av. Libertador 1234",
-    #         "ambientes": ["Comedor", "Baño"]
-    #     },
-    #     {
-    #         "nombre": "Casa de Verano",
-    #         "direccion": "Calle del Sol 789",
-    #         "ambientes": ["Dormitorio", "Cocina"]
-    #     },
-    #     {
-    #         "nombre": "Departamento Centro",
-    #         "direccion": "Mitre 456",
-    #         "ambientes": []
-    #     }
-    # ]
 
     agregar_vivienda, buscar_vivienda_por_nombre, eliminar_vivienda, listar_viviendas, agregar_ubicacion_a_vivienda, _ = gestor_viviendas()
 

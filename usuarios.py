@@ -50,7 +50,7 @@ def gestor_usuarios():
     
     def buscar_por_usuario(usuario):
         for i in range(len(usuarios)):
-            if usuario == usuarios[i]['username']:
+            if usuario == usuarios[i]["username"]:
                 return i
         return None
 
@@ -80,12 +80,12 @@ def gestor_usuarios():
     def consultar_datos_personales(usuario):
         indice_usuario = buscar_por_usuario(usuario)
     
-        if indice_usuario != None and usuario == usuarios[indice_usuario]['username']:
+        if indice_usuario != None and usuario == usuarios[indice_usuario]["username"]:
             print(f"\n--- DATOS PERSONALES---")
-            print(f"Nombre: {usuario['nombre']}")
-            print(f"Apellido: {usuario['apellido']}")
-            print(f"Email: {usuario['email']}")
-            print(f"Rol: {usuario['rol']}")
+            print(f"Nombre: {usuario["nombre"]}")
+            print(f"Apellido: {usuario["apellido"]}")
+            print(f"Email: {usuario["email"]}")
+            print(f"Rol: {usuario["rol"]}")
         else:    
             print("Error: No se encontraron los datos del usuario.")
 
@@ -93,7 +93,7 @@ def gestor_usuarios():
         print(f"\n--- Lista de usuarios---")
         for i in range(len(usuarios)):
             datos_usuario = usuarios[i]
-            rol_numero = datos_usuario['rol']
+            rol_numero = datos_usuario["rol"]
             rol_texto = ""
             if rol_numero == 1:
                 rol_texto = "Usuario"
@@ -101,7 +101,7 @@ def gestor_usuarios():
                 rol_texto = "Admin"
             elif rol_numero == 3:
                 rol_texto = "Dueno"
-            print(f"- Usuario: {usuarios[i]['username']} | Rol: {rol_texto}")
+            print(f"- Usuario: {usuarios[i]["username"]} | Rol: {rol_texto}")
 
     def modificar_rol_usuario(usuario_a_modificar: str, nuevo_rol_valor: int):
         indice_usuario = buscar_por_usuario(usuario_a_modificar)
@@ -112,7 +112,7 @@ def gestor_usuarios():
         if nuevo_rol_valor < 1 or nuevo_rol_valor > 3:
             return f"El rol '{nuevo_rol_valor}' no es un número de rol válido (debe ser 1, 2 o 3)."
         
-        usuarios[indice_usuario]['rol'] = nuevo_rol_valor
+        usuarios[indice_usuario]["rol"] = nuevo_rol_valor
         
         return f"El rol de '{usuario_a_modificar}' ha sido actualizado."
     

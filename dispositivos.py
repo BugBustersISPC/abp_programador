@@ -11,20 +11,20 @@ class TipoDispositivo(Enum):
 def gestor_dispositivos():
 
     dispositivos = [
-        {'nombre': 'Camara seguridad', 'tipo': TipoDispositivo.CAMARA, 'estado': False, 'ambiente': 'Entrada'},
-        {'nombre': 'Camara trasera', 'tipo': TipoDispositivo.CAMARA, 'estado': True, 'ambiente': 'Patio'},
-        {'nombre': 'Luces', 'tipo': TipoDispositivo.LUZ, 'estado': True, 'ambiente': 'Comedor'},
-        {'nombre': 'Luz', 'tipo': TipoDispositivo.LUZ, 'estado': False, 'ambiente': 'Sala'},
-        {'nombre': 'Luz RGB', 'tipo': TipoDispositivo.LUZ, 'estado': True, 'ambiente': 'Dormitorio'},
-        {'nombre': 'Parlantes TV', 'tipo': TipoDispositivo.SONIDO, 'estado': True, 'ambiente': 'Living'},
-        {'nombre': 'Equipo musica', 'tipo': TipoDispositivo.SONIDO, 'estado': True, 'ambiente': 'Habitación'},
+        {"nombre": "Camara seguridad", "tipo": TipoDispositivo.CAMARA, "estado": False, "ambiente": "Entrada"},
+        {"nombre": "Camara trasera", "tipo": TipoDispositivo.CAMARA, "estado": True, "ambiente": "Patio"},
+        {"nombre": "Luces", "tipo": TipoDispositivo.LUZ, "estado": True, "ambiente": "Comedor"},
+        {"nombre": "Luz", "tipo": TipoDispositivo.LUZ, "estado": False, "ambiente": "Sala"},
+        {"nombre": "Luz RGB", "tipo": TipoDispositivo.LUZ, "estado": True, "ambiente": "Dormitorio"},
+        {"nombre": "Parlantes TV", "tipo": TipoDispositivo.SONIDO, "estado": True, "ambiente": "Living"},
+        {"nombre": "Equipo musica", "tipo": TipoDispositivo.SONIDO, "estado": True, "ambiente": "Habitación"},
     ]
 
     # MARK: Gestión de Dispositivos
 
     def buscar_por_nombre(nombre):
         for i in dispositivos:
-            if nombre == i['nombre']:
+            if nombre == i["nombre"]:
                 return True
         
         return False
@@ -32,9 +32,9 @@ def gestor_dispositivos():
     def agregar_dispositivo(nombre, tipo, estado):
         if not buscar_por_nombre(nombre):
             dispositivos.append({
-                'nombre': nombre,
-                'tipo': tipo,
-                'estado': estado,
+                "nombre": nombre,
+                "tipo": tipo,
+                "estado": estado,
             })
 
             return True
@@ -43,21 +43,21 @@ def gestor_dispositivos():
 
     def eliminar_dispositivo(nombre, confirmar):
         for dis in dispositivos:
-            if dis['nombre'].lower() == nombre.lower():
-                if confirmar.lower() == 'si':
+            if dis["nombre"].lower() == nombre.lower():
+                if confirmar.lower() == "si":
                     dispositivos.remove(dis)
-                    return f'El dispositivo "{nombre}" fue eliminado.'
-                elif confirmar.lower() == 'no':
-                    return 'Operación cancelada...'
+                    return f"El dispositivo '{nombre}' fue eliminado."
+                elif confirmar.lower() == "no":
+                    return "Operación cancelada..."
                 else:
-                    return 'Error: Solamente escriba "si" o "no".'
-        return f'No se encontro ningun dispositivo llamado "{nombre}".'
+                    return "Error: Solamente escriba 'si' o 'no'."
+        return f"No se encontro ningun dispositivo llamado '{nombre}'."
 
     def listar_dispositivos():
         if not dispositivos:
-            return 'No hay dispositivos registrados.'
+            return "No hay dispositivos registrados."
         for dis in dispositivos:
-            print(f'- {dis['nombre']} (Tipo: {dis['tipo']}) - {'Estado: On' if dis['estado'] else 'Estado: Off'}')
+            print(f"- {dis["nombre"]} (Tipo: {dis["tipo"]}) - {"Estado: On" if dis["estado"] else "Estado: Off"}")
 
     # MARK: Automatizaciones
 

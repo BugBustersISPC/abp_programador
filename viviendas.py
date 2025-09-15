@@ -56,7 +56,7 @@ def gestor_viviendas():
         
         print("\n--- LISTA DE VIVIENDAS ---")
         for vivienda in viviendas:
-            print(f"- {vivienda['nombre']} (Dirección: {vivienda['direccion']}) - Ambientes: {len(vivienda['ambientes'])}")
+            print(f"- {vivienda["nombre"]} (Dirección: {vivienda["direccion"]}) - Ambientes: {len(vivienda["ambientes"])}")
 
 
     def agregar_ubicacion_a_vivienda(nombre_vivienda: str, ubicacion: str):
@@ -103,9 +103,9 @@ def gestor_viviendas():
                 vivienda = buscar_vivienda_por_nombre(nombre, viviendas)
                 if vivienda:
                     print(f"\n--- DETALLES DE LA VIVIENDA ---")
-                    print(f"Nombre: {vivienda['nombre']}")
-                    print(f"Dirección: {vivienda['direccion']}")
-                    print(f"Ubicaciones ({len(vivienda['dispositivos'])}): {', '.join(vivienda['dispositivos']) if vivienda['dispositivos'] else 'Ninguna'}")
+                    print(f"Nombre: {vivienda["nombre"]}")
+                    print(f"Dirección: {vivienda["direccion"]}")
+                    print(f"Ubicaciones ({len(vivienda["dispositivos"])}): {", ".join(vivienda["dispositivos"]) if vivienda["dispositivos"] else "Ninguna"}")
                 else:
                     print("No se encontró la vivienda.")
 
