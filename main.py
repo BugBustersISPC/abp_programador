@@ -1,16 +1,9 @@
 from dispositivos import gestor_dispositivos
 from usuarios import gestor_usuarios, Rol
+from viviendas import gestor_viviendas
 from automatizaciones import *
 
 from funciones_auxiliares import input_int, input_confirmacion, input_estado
-
-from viviendas import (
-    agregar_vivienda,
-    buscar_vivienda_por_nombre,
-    eliminar_vivienda,
-    listar_viviendas,
-    agregar_ubicacion_a_vivienda
-)
 
 # cuentas = {
 #     "JuanPerez": {
@@ -128,23 +121,26 @@ def menu_usuario(nombre_usuario):
             print("MODO NOCHE ACTIVADO AUTOMATICAMENTE!!!")
 
 def menu_viviendas(nombre_usuario):
-    viviendas = [
-        {
-            "nombre": "Casa Central",
-            "direccion": "Av. Libertador 1234",
-            "ambientes": ["Comedor", "Baño"]
-        },
-        {
-            "nombre": "Casa de Verano",
-            "direccion": "Calle del Sol 789",
-            "ambientes": ["Dormitorio", "Cocina"]
-        },
-        {
-            "nombre": "Departamento Centro",
-            "direccion": "Mitre 456",
-            "ambientes": []
-        }
-    ]
+    # viviendas = [
+    #     {
+    #         "nombre": "Casa Central",
+    #         "direccion": "Av. Libertador 1234",
+    #         "ambientes": ["Comedor", "Baño"]
+    #     },
+    #     {
+    #         "nombre": "Casa de Verano",
+    #         "direccion": "Calle del Sol 789",
+    #         "ambientes": ["Dormitorio", "Cocina"]
+    #     },
+    #     {
+    #         "nombre": "Departamento Centro",
+    #         "direccion": "Mitre 456",
+    #         "ambientes": []
+    #     }
+    # ]
+
+    agregar_vivienda, buscar_vivienda_por_nombre, eliminar_vivienda, listar_viviendas, agregar_ubicacion_a_vivienda, _ = gestor_viviendas()
+
 
     while True:
         print(f"--- Menu Usuario Dueño de {nombre_usuario} ---")
@@ -165,7 +161,7 @@ def menu_viviendas(nombre_usuario):
             if not nombre or not direccion: 
                 print("El nombre y la dirección no pueden estar vacíos.")
                 continue
-            if agregar_vivienda(viviendas, nombre, direccion):
+            if agregar_vivienda(nombre, direccion):
                 print("Vivienda agregada correctamente.")
             else:
                 print("Ya existe una vivienda con ese nombre.")
@@ -175,7 +171,7 @@ def menu_viviendas(nombre_usuario):
             if not nombre:
                 print("El nombre a buscar no puede estar vacío.")
                 continue
-            vivienda = buscar_vivienda_por_nombre(nombre, viviendas)
+            vivienda = buscar_vivienda_por_nombre(nombre)
             if vivienda:
                 print(f"\n--- DETALLES DE LA VIVIENDA ---")
                 print(f"Nombre: {vivienda['nombre']}")
@@ -190,16 +186,16 @@ def menu_viviendas(nombre_usuario):
                 print("El nombre a eliminar no puede estar vacío.")
                 continue
             
-            vivienda_existente = buscar_vivienda_por_nombre(nombre, viviendas)
+            vivienda_existente = buscar_vivienda_por_nombre(nombre)
             if not vivienda_existente:
                 print(f"No se encontró ninguna vivienda llamada '{nombre}'.")
                 continue
 
             confirmar = input(f"¿Está seguro que desea eliminar la vivienda '{nombre}'? (si/no): ").strip()
-            print(eliminar_vivienda(nombre, confirmar, viviendas))
+            print(eliminar_vivienda(nombre, confirmar))
 
         elif opcion == 4:
-            resultado = listar_viviendas(viviendas)
+            resultado = listar_viviendas()
             if resultado: 
                 print(resultado)
 
@@ -209,7 +205,7 @@ def menu_viviendas(nombre_usuario):
                 print("El nombre de la vivienda no puede estar vacío.")
                 continue
             
-            vivienda_obj = buscar_vivienda_por_nombre(nombre_vivienda, viviendas)
+            vivienda_obj = buscar_vivienda_por_nombre(nombre_vivienda)
             if not vivienda_obj:
                 print("No se encontró la vivienda para agregarle una ubicación.")
                 continue
@@ -219,7 +215,7 @@ def menu_viviendas(nombre_usuario):
                 print("El nombre de la ubicación no puede estar vacío.")
                 continue
             
-            resultado = agregar_ubicacion_a_vivienda(nombre_vivienda, ubicacion, viviendas)
+            resultado = agregar_ubicacion_a_vivienda(nombre_vivienda, ubicacion)
             if resultado is True:
                 print("Ubicación agregada correctamente.")
             elif resultado is False: 
@@ -230,7 +226,7 @@ def menu_viviendas(nombre_usuario):
 
         elif opcion == 6: # Falta implementar esta funcionalidad
         
-            break
+            continue
 
         elif opcion == 7:
             print("Saliendo del menú...")
